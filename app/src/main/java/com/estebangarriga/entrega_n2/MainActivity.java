@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
@@ -18,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         final Button btnEditar = findViewById(R.id.ButtonR);
 
         final EditText Nom = findViewById(R.id.NombreR);
-        final EditText Fech = findViewById(R.id.FechaR);
+        final DatePicker Fech = findViewById(R.id.FechaR);
         final EditText Tel = findViewById(R.id.TelefonoR);
         final EditText Eml = findViewById(R.id.EmailR);
         final EditText Desc = findViewById(R.id.DescripcionR);
@@ -26,19 +28,25 @@ public class MainActivity extends AppCompatActivity {
         btnEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.i("Fecha",String.valueOf(Fech.getDayOfMonth()));
 
                 // Creo el intent para ir a la otra activity
-                Intent enviarDatos = new Intent(MainActivity.this, Activity2.class);
+                Intent intent = new Intent(MainActivity.this, Activity2.class);
 
                 //Agrego los datos al intent
-                enviarDatos.putExtra("Nombre", Nom.getText().toString());
-                enviarDatos.putExtra("Fecha", Fech.getText().toString());
-                enviarDatos.putExtra("Telefono", Tel.getText().toString());
-                enviarDatos.putExtra("Email", Eml.getText().toString());
-                enviarDatos.putExtra("Descripcion", Desc.getText().toString());
+                intent.putExtra("Nombre", Nom.getText().toString());
+
+                intent.putExtra("diaNacimiento",String.valueOf(Fech.getDayOfMonth()));
+                intent.putExtra("mesNacimiento",String.valueOf(Fech.getMonth()));
+                intent.putExtra("añoNacimiento",String.valueOf(Fech.getYear()));
+
+                //intent.putExtra("Fecha", String.valueOf(Fech.getText().toString()));
+                intent.putExtra("Telefono", Tel.getText().toString());
+                intent.putExtra("Email", Eml.getText().toString());
+                intent.putExtra("Descripcion", Desc.getText().toString());
 
                 //Inicio la activity
-                startActivity(enviarDatos);
+                startActivity(intent);
             }
         });
     }

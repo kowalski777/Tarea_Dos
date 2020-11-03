@@ -2,7 +2,7 @@ package com.estebangarriga.entrega_n2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
+//import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -27,7 +27,11 @@ public class Activity2 extends AppCompatActivity {
 
         //Asigno cada parametro a una variable
         String nombre = parametros.getString("Nombre");
-        String fecha = parametros.getString("Fecha");
+
+        String diaNacimiento = parametros.getString("diaNacimiento");
+        String mesNacimiento = parametros.getString("mesNacimiento");
+        String añoNacimiento = parametros.getString("añoNacimiento");
+        //String fecha = parametros.getString("Fecha");  //ya no lo uso (cambiado por Datepicker)
         String telefono = parametros.getString("Telefono");
         String email = parametros.getString("Email");
         String descripcion = parametros.getString("Descripcion");
@@ -41,8 +45,11 @@ public class Activity2 extends AppCompatActivity {
         tvDescripcion    = (TextView) findViewById(R.id.tvDescripcion);
         tvButton         = (TextView) findViewById(R.id.tvButton);
 
+
         tvNombre.setText(nombre);
-        tvFecha.setText(fecha);
+        //El datapicker devuelve el mes empezando de 0 por eso hay sumarle uno, enero es el mes 0
+        tvFecha.setText(diaNacimiento+"/"+String.valueOf(Integer.parseInt(mesNacimiento)+1)+"/"+añoNacimiento);
+        //tvFecha.setText(fecha);
         tvTelefono.setText(telefono);
         tvEmail.setText(email);
         tvDescripcion.setText(descripcion);
@@ -51,8 +58,9 @@ public class Activity2 extends AppCompatActivity {
         tvButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Activity2.this, MainActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(Activity2.this, MainActivity.class);
+                //startActivity(intent);
+                onBackPressed();
             }
         });
 
